@@ -33,6 +33,11 @@ class TestPokerHand(unittest.TestCase):
         self.assertEquals(hand.suits['D'], 3)
         self.assertEquals(hand.suits['H'], 2)
 
+    def test_hand_str_should_show_cards_and_value(self):
+        hand = Hand.from_string('4D 4D 4S 7H 8D')
+        excepected = "<hand ['4D', '4D', '4S', '7H', '8D'], TREE_OF_A_KIND>"
+        self.assertEquals(str(hand), excepected)
+
     def test_hand_with_a_high_card_should_return_HIGH_CARD_as_value(self):
         hand = Hand.from_string('4D 5D 3D 7H KD')
         self.assertEquals(hand.value, 'HIGH_CARD')

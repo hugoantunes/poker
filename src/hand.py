@@ -16,6 +16,9 @@ class Hand(object):
         self.cards = cards
         self._set_numbers_and_suits()
 
+    def __str__(self):
+        return "<hand {0}, {1}>".format(self.cards, self.value)
+
     def _set_numbers_and_suits(self):
         for card in self.cards:
             match = re.match(r'([23456789TJQKA]+)([CDHS]+)', card, re.I)
