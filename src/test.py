@@ -13,6 +13,15 @@ class TestPokerHand(unittest.TestCase):
             Hand.from_string('4D 4D 4D 99k 8D')
         self.assertEquals(cm.exception.message, 'wrong card defined')
 
+    def test_less_than_5_cards_should_raise_exception(self):
+        with self.assertRaises(Exception) as cm:
+            Hand.from_string('4D 4D')
+        self.assertEquals(cm.exception.message, '2 cards in the hand, must be 5')
+
+        with self.assertRaises(Exception) as cm:
+            Hand.from_string('4D 4D 4D 4D 4D 4D 4D 4D')
+        self.assertEquals(cm.exception.message, '8 cards in the hand, must be 5')
+
     def test_hand_must_count_numbers(self):
         hand = Hand.from_string('4D 4D 4D 7H 8D')
         self.assertEquals(hand.numbers['4'], 3)

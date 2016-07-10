@@ -8,6 +8,9 @@ class Hand(object):
     cards = []
 
     def __init__(self, cards):
+        tot_cards = len(cards)
+        if tot_cards != 5:
+            raise Exception('{0} cards in the hand, must be 5'.format(tot_cards))
         self.numbers = collections.defaultdict(int)
         self.suits = collections.defaultdict(int)
         self.cards = cards
