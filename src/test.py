@@ -38,6 +38,9 @@ class TestPokerHand(unittest.TestCase):
         excepected = "<hand ['4D', '4D', '4S', '7H', '8D'], TREE_OF_A_KIND>"
         self.assertEquals(str(hand), excepected)
 
+
+class TestPokerHandValue(unittest.TestCase):
+
     def test_hand_with_a_high_card_should_return_HIGH_CARD_as_value(self):
         hand = Hand.from_string('4D 5D 3D 7H KD')
         self.assertEquals(hand.value, 'HIGH_CARD')
@@ -81,6 +84,20 @@ class TestPokerHand(unittest.TestCase):
     def test_hand_with_sequence_cards_when_A_is_lower_card_should_return_STRAIGHT_as_value(self):
         hand = Hand.from_string('AS 2S 3D 4S 5D')
         self.assertEquals(hand.value, 'STRAIGHT')
+
+
+class TestPokerHandComparison(unittest.TestCase):
+
+    def test_royal_flush_should_win_to_straight(self):
+        winner_hand = Hand.from_string('TS JS QS KS AS')
+        looser_hand = Hand.from_string('AS 2S 3D 4S 5D')
+        self.assertTrue(winner_hand > looser_hand)
+
+    def test_flush_should_looase_to_full_house(self):
+        looser_hand = Hand.from_string('2D 4D TD 9D 2D')
+        winner_hand = Hand.from_string('4D 4D 4C 3D 3D')
+        self.assertTrue(looser_hand < winner_hand)
+
 
 if __name__ == '__main__':
     unittest.main()

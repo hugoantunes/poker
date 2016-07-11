@@ -5,6 +5,10 @@ import collections
 
 class Hand(object):
     possible_numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
+    possible_values = [
+        'HIGH_CARD', 'ONE_PAIR', 'TWO_PAIR', 'TREE_OF_A_KIND', 'STRAIGHT',
+        'FLUSH', 'FULL_HOUSE', 'FOUR_OF_A_KIND', 'STRAIGHT_FLUSH', 'ROYAL_FLUSH'
+    ]
     cards = []
 
     def __init__(self, cards):
@@ -18,6 +22,12 @@ class Hand(object):
 
     def __str__(self):
         return "<hand {0}, {1}>".format(self.cards, self.value)
+
+    def __cmp__(self, other):
+        if self.possible_values.index(self.value) > self.possible_values.index(other.value):
+            return 1
+        else:
+            return -1
 
     def _set_numbers_and_suits(self):
         for card in self.cards:
