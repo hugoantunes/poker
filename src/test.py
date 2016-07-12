@@ -89,14 +89,14 @@ class TestPokerHandValue(unittest.TestCase):
 class TestPokerHandComparison(unittest.TestCase):
 
     def test_royal_flush_should_win_to_straight(self):
-        winner_hand = Hand.from_string('TS JS QS KS AS')
-        looser_hand = Hand.from_string('AS 2S 3D 4S 5D')
-        self.assertTrue(winner_hand > looser_hand)
+        royal_flush = Hand.from_string('TS JS QS KS AS')
+        straight = Hand.from_string('AS 2S 3D 4S 5D')
+        self.assertTrue(royal_flush > straight)
 
-    def test_flush_should_looase_to_full_house(self):
-        looser_hand = Hand.from_string('2D 4D TD 9D 2D')
-        winner_hand = Hand.from_string('4D 4D 4C 3D 3D')
-        self.assertTrue(looser_hand < winner_hand)
+    def test_flush_should_loose_to_full_house(self):
+        flush_hand = Hand.from_string('2D 4D TD 9D 2D')
+        full_house_hand = Hand.from_string('4D 4D 4C 3D 3D')
+        self.assertTrue(flush_hand < full_house_hand)
 
     def test_when_no_combination_high_card_should_win(self):
         winner_hand = Hand.from_string('4D 5D 3D 7H KD')
