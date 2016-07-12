@@ -1,4 +1,5 @@
 # encoding: utf-8
+from decorator import cachedProperty
 import re
 import collections
 
@@ -59,8 +60,9 @@ class Hand(object):
         return -1
 
     def _set_numbers_and_suits(self):
+        pattern = re.compile('([23456789TJQKA]+)([CDHS]+)')
         for card in self.cards:
-            match = re.match(r'([23456789TJQKA]+)([CDHS]+)', card, re.I)
+            match = re.match(pattern, card)
             if not match:
                 raise Exception('wrong card defined')
             else:
@@ -91,7 +93,7 @@ class Hand(object):
         cards = cards_str.split(' ')
         return Hand(cards)
 
-    @property
+    @cachedProperty
     def value(self):
         numbers = self.numbers.values()
         qnt_suits = len(self.suits.values())
