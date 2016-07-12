@@ -34,9 +34,7 @@ class Hand(object):
             if self.value in ['ONE_PAIR', 'THREE_OF_A_KIND', 'FOUR_OF_A_KIND']:
                 if NUMBERS.index(self.high_cards[0]) == NUMBERS.index(other.high_cards[0]):
                     return self._get_higher(self.high_cards[1:], other.high_cards[1:])
-                elif NUMBERS.index(self.high_cards[0]) > NUMBERS.index(other.high_cards[0]):
-                    return 1
-                return -1
+                return cmp(NUMBERS.index(self.high_cards[0]), NUMBERS.index(other.high_cards[0]))
             elif self.value in ['TWO_PAIR', 'FULL_HOUSE']:
                 combination = set(self.high_cards[:2] + other.high_cards[:2])
                 if len(combination) == 2:
@@ -45,19 +43,11 @@ class Hand(object):
                     self_higher_cards = sorted(self.high_cards[:2], reverse=True)
                     other_higher_cards = sorted(other.high_cards[:2], reverse=True)
                     if NUMBERS.index(self_higher_cards[0]) == NUMBERS.index(other_higher_cards[0]):
-                        if NUMBERS.index(self_higher_cards[1]) > NUMBERS.index(other_higher_cards[1]):
-                            return 1
-                        else:
-                            return -1
-                    if NUMBERS.index(self_higher_cards[0]) > NUMBERS.index(other_higher_cards[0]):
-                        return 1
-                    return -1
+                        return cmp(NUMBERS.index(self_higher_cards[1]) > NUMBERS.index(other_higher_cards[1]))
+                    return cmp(NUMBERS.index(self_higher_cards[0]), NUMBERS.index(other_higher_cards[0]))
             else:
                 return self._get_higher(self.high_cards, other.high_cards)
-
-        elif VALUES.index(self.value) > VALUES.index(other.value):
-            return 1
-        return -1
+        return cmp(VALUES.index(self.value), VALUES.index(other.value))
 
     def _set_numbers_and_suits(self):
         pattern = re.compile('([23456789TJQKA]+)([CDHS]+)')
