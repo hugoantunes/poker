@@ -1,8 +1,8 @@
 # poker
 
-This project contains an implamentation in python of a poker hand.
+This project contains an implementation in python of a poker hand.
 
-There is no external deppendencies only built in libraries were used.
+There is no external dependencies only built in libraries were used.
 
 ## to run tests:
 ```bash
